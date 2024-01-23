@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/*logo positioning/alignment/size*/
+.logo {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*descendant selector*/
+.logo img {
+    width: 44%;
+    border: 2px solid white;
+    border-radius: 50px;
+}
+
+/*navbar positioning/alignment*/
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    cursor: pointer;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/*flex to display list as nav*/
+.nav-list {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.login-nav li a{    /*login paert*/
+    
+    color: white;
+    text-decoration: none;
+
+}
+
+.login-nav li {    /*login paert*/
+    list-style: none;
+    text-decoration: none;
+
+}
+
+
+.login-nav li a:hover{    
+    color: grey;
+}
+
+/*spacing & padding in nav */
+.nav-list li {
+    list-style: none;
+    color: white;
+    padding: 26px 30px;/*spacing between elements*/
+}
+
+/*link styling*/
+.nav-list li a {
+    text-decoration: none;
+    color: white;
+}
+
+/*hover effect  (pseudo-class selector a:hover)*/
+.nav-list li a:hover {
+    color: grey;
+}
+
+.background {
+    background: rgba(73, 69, 69, 0.7);
+    
+}
+
+.firstSection {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.firstHalf {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/*vegetable box */
+.vegetable {
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin: 10px;
+    background-color: #fff;
+    text-align: center;
+    width: calc(20% - 15px);
+    display: inline-block;
+    box-sizing: content-box;
+    height: 200px;
+  
+}
+
+/*vegetable image*/
+.vegetable img {
+    max-width: 60%;
+    height: 60%;
+    object-fit: cover;
+    
+}
+
+/*add to cart button*/
+.cart {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 2%;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/*cart item list*/
+#cartItems {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: none;
+   /* display:inline-flex;*/
+}
+
+
+
+   

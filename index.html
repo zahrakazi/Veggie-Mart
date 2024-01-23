@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: rgba(0, 0, 0, 0.7) url('v2.jpg') fixed;
+            background-size: cover;
+            background-blend-mode: darken;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h2 em {
+            color: white;
+        }
+
+        /*@media screen and (max-width: 768px) is targeting screens with a maximum width of 768 pixels or less. */
+        @media screen and (max-width: 768px) {
+            .logo {
+                width: 50%;
+                text-align: center; /* Center the logo on small screens */
+            }
+
+            .nav-list {
+                width: 100%;
+                flex-direction: column;
+                align-items: center; /* Center navigation items on small screens */
+            }
+
+            .nav-list li {
+                padding: 5px; /* Reduce padding for navigation items on small screens */
+            }
+
+            .firstHalf {
+                width: 100%; /* Take up full width on small screens */
+            }
+
+            .vegetable {
+                width: calc(50% - 20px); /* Two vegetables per row on small screens */
+            }
+        }
+    </style>
+    <title>VeggieMart - One Stop Destination</title>
+</head>
+
+<body>
+    <h2><em>Veggies on the Go</em></h2>
+    <nav class="navbar background">
+        <ul class="nav-list">
+            <div class="logo"><img src="veggie_icon.jpg" alt="logo"></div>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="aboutus.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contactus.html">Contact</a></li>
+
+        </ul>
+        <div class="login-nav">
+            <ul>
+
+                <li><a href="login.html">Login</a></li>
+                <li><a href="contactus.html">Signup</a></li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <section class="background firstSection">
+        <div class="firstHalf">
+
+            <!-- Dynamic generation of vegetable elements -->
+            <div class="vegetable-container" id="vegetable-container"></div>
+
+             <div id="cartItems">
+                <h2>Your Cart Items</h2>
+                <div class="logo"><img src="cart.jpg" alt="logo"></div>
+                <ul id="cartList"></ul>
+                <button class="cart" onclick="checkout()">Checkout</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p style="color: aliceblue;">&copy; 2024 Vegetable Shop</p>
+    </footer> 
+
+    <script>
+        // JavaScript code remains unchanged
+
+        // Function to check and display cart items on page load
+        function displayCartOnLoad() {
+            var storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            var cartList = document.getElementById('cartList');
+
+            if (storedCartItems.length > 0) {
+                // Clear existing cart items in the container
+                cartList.innerHTML = '';
+
+                storedCartItems.forEach(function (item) {
+                    var listItem = document.createElement('li');
+                    listItem.dataset.vegetable = item.vid;  // Use the correct property name
+                    listItem.dataset.name = item.name;
+                    listItem.dataset.quantity = item.quantity;
+                    listItem.textContent = `${item.name} x${item.quantity}`;
+                    cartList.appendChild(listItem);
+                });
+
+                document.getElementById('cartItems').style.display = 'block';
+            } else {
+                alert("Your cart is empty! Add Veggies to your cart");
+            }
+        }
+
+        // Call the function to display cart items on page load
+        displayCartOnLoad();
+
+        function updateLocalStorageCart() {
+            var cartItems = [];
+            var cartListItems = document.querySelectorAll('#cartList li');
+//creates an array of objects representing the cart.
+            cartListItems.forEach(function (item) {
+                cartItems.push({
+                    vid: +item.dataset.vegetable,
+                    name: item.dataset.name,
+                    quantity: +item.dataset.quantity,
+                    price: vegetables.find(veg => veg.id === +item.dataset.vegetable).price
+
+                });
+            });
+
+            // Save cart items to localStorage
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            // After updating localStorage, re-render the cart popup
+            updateAndRenderCart();
+        }
+
+        function updateAndRenderCart() {
+            // Get cart items from localStorage
+            var storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            var cartContainer = document.getElementById('cartList');
+
+            // If there are items in the cart, render them in the container
+            if (storedCartItems.length > 0) {
+                // Clear existing cart items in the container
+                cartContainer.innerHTML = '';
+                
+                storedCartItems.forEach(function (item) {
+                    var listItem = document.createElement('li');
+                    listItem.dataset.vegetable = item.vid;
+                    listItem.dataset.name = item.name;
+                    listItem.dataset.quantity = item.quantity;
+                    listItem.textContent = `${item.name} x${item.quantity}`;
+                    cartContainer.appendChild(listItem);
+                });
+
+                document.getElementById('cartItems').style.display = 'block';
+            } else {
+                // If the cart is empty, display a message
+                cartContainer.innerHTML = 'Your cart is empty.';
+                document.getElementById('cartItems').style.display = 'none';
+            }
+        }
+
+        function addToCart(vid) {
+            var cartList = document.getElementById('cartList');
+            var existingItem = document.querySelector(`#cartList li[data-vegetable="${vid}"]`);
+            var vegetable = vegetables.find(veg => veg.id === +vid);
+
+            if (existingItem) {
+                existingItem.dataset.quantity = +existingItem.dataset.quantity + 1;
+                existingItem.textContent = `${vegetable.name} x${existingItem.dataset.quantity}`;
+            } else {
+                var listItem = document.createElement('li');
+                listItem.dataset.vegetable = vegetable.id;
+                listItem.dataset.name = vegetable.name;
+                listItem.dataset.quantity = 1;
+                listItem.textContent = `${vegetable.name} x1`;
+
+                cartList.appendChild(listItem);
+            }
+
+            // Update cart items in localStorage
+            updateLocalStorageCart();
+
+            document.getElementById('cartItems').style.display = 'block';
+        }
+
+        function checkout() {
+            alert('Redirecting to checkout page.');
+            window.location.href = 'checkout.html';
+        }
+
+
+        // Vegetable data
+        const vegetables = [
+            { id: 1, name: 'Carrot', image: 'carrot.jpg', price: 11.99 },
+            { id: 2,name: 'Tomato', image: 'tomatoes.jpg', price: 29.49 },
+            {id: 3, name: 'Broccoli', image: 'broccoli.jpg', price: 39 },
+            { id: 4, name: 'Spinach', image: 'spinach.jpg', price: 54 },
+            { id: 5, name: 'Bell Pepper', image: 'bellpepper.jpg', price: 1.79 },
+            { id: 6, name: 'Cucumber', image: 'cucumber.jpg', price: 24},
+            { id: 7,name: 'Zucchini', image: 'zucchini.jpg', price: 25 },
+            { id: 8,name: 'Eggplant', image: 'eggplant.jpg', price: 15 },
+            { id: 9,name: 'Bell Pepper', image: 'bellpepper.jpg', price: 19 },
+            { id: 10, name: 'Cucumber', image: 'cucumber.jpg', price: 29 },
+            { id: 11, name: 'Zucchini', image: 'zucchini.jpg', price: 49 },
+            { id: 12, name: 'Eggplant', image: 'eggplant.jpg', price: 19 },
+            { id: 13, name: 'Carrot', image: 'carrot.jpg', price: 53 },
+            { id: 14, name: 'Tomato', image: 'tomatoes.jpg', price: 32 },
+            { id: 15, name: 'Broccoli', image: 'broccoli.jpg', price: 29 },
+            { id: 16, name: 'Spinach', image: 'spinach.jpg', price: 38 }  
+            // We can Add more vegetables as needed
+        ];
+
+        // Dynamically generate HTML for each vegetable and append it to the container
+        const vegetableContainer = document.getElementById('vegetable-container');
+        vegetables.forEach(vegetable => {
+            vegetableContainer.innerHTML += generateVegetableHTML(vegetable);
+        });
+
+        function generateVegetableHTML(vegetable) {
+            return `
+                <div class="vegetable">
+                    <img src="${vegetable.image}" alt="${vegetable.name}">
+                    <h2>${vegetable.name}</h2>
+                   
+                    <p>$${vegetable.price.toFixed(2)} per kg</p>
+                    <button class="cart" onclick="addToCart('${vegetable.id.toString()}')">Add to Cart</button>
+                </div>
+            `;
+        } 
+    </script> 
+</body>
+
+</html>

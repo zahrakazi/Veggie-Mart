@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #f2f2f2;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        a {
+          
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #fff;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        #checkoutItems {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #checkoutList {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #checkoutList li {
+            margin: 10px 0;
+            font-size: 16px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        #totalItems,
+        #totalCost {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+    <title>Checkout - VeggieMart</title>
+</head>
+
+<body>
+
+    <h2>Checkout</h2>
+
+    <div id="checkoutItems">
+        <h3>Your Cart Items</h3>
+        <ul id="checkoutList"></ul>
+        <p>Total Items: <span id="totalItems">0</span></p>
+        <p>Total Cost: Rs<span id="totalCost">0.00</span></p>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Vegetable Shop</p>
+    </footer>
+
+
+    <script>
+        // Retrieve cart items from localStorage
+        var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+        // Display cart items in the checkout page
+        var checkoutList = document.getElementById('checkoutList');
+        var totalItemsElement = document.getElementById('totalItems');
+        var totalCostElement = document.getElementById('totalCost');
+
+        // Initialize totalCost variable
+        var totalCost = 0;
+        //Iterate over each item in the cartItems array
+        cartItems.forEach(item => {
+            var listItem = document.createElement('li');  //Creates a new list item (<li>) element.
+            var itemCost = item.quantity * item.price;    // Calculates the cost of the current item by multiplying the quantity with the price
+            listItem.textContent = `${item.name} x${item.quantity} - Rs.${itemCost.toFixed(2)}`;  //Updates the text content of the list item with information about the vegetable, quantity, and cost.
+            checkoutList.appendChild(listItem);  // Appends the list item to the checkout list.
+
+            // Update totalCost
+            totalCost += itemCost;
+        });
+
+        // Calculate and display the total quantity and cost
+        var totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+        totalItemsElement.textContent = totalQuantity;
+
+        // Display the correct totalCost
+        totalCostElement.textContent = `.${totalCost.toFixed(2)}`;
+    </script>
+
+
+<a href="index.html">Home</a>
+</body>
+
+</html>
