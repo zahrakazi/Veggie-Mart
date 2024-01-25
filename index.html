@@ -89,7 +89,7 @@
     </footer> 
 
     <script>
-        // JavaScript code remains unchanged
+         
 
         // Function to check and display cart items on page load
         function displayCartOnLoad() {
@@ -102,7 +102,7 @@
 
                 storedCartItems.forEach(function (item) {
                     var listItem = document.createElement('li');
-                    listItem.dataset.vegetable = item.vid;  // Use the correct property name
+                    listItem.dataset.vegetable = item.vid;  
                     listItem.dataset.name = item.name;
                     listItem.dataset.quantity = item.quantity;
                     listItem.textContent = `${item.name} x${item.quantity}`;
