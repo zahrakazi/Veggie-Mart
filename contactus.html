@@ -17,12 +17,12 @@
         }
 
         h1 {
-            color: #4e534e;
+            color: #0b0b0b;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add a subtle text shadow */
         }
 
         p {
-            color: #555;
+            color: #0e0d0d;
             font-size: 18px;
             line-height: 1.6;
             margin-bottom: 20px;
@@ -46,6 +46,17 @@
         }
 
         
+        video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
         footer {
             position: absolute;
             bottom: 0;
@@ -59,7 +70,9 @@
     </style>
 </head>
 <body>
-
+    <video autoplay muted loop >
+        <source src="vid1.mp4" type="video/mp4">
+    </video>
     <h1>Contact Us</h1>
 
     <p>Have questions or need assistance? Feel free to reach out:</p>

@@ -59,14 +59,14 @@
             <li><a href="contactus.html">Contact</a></li>
 
         </ul>
-        <div class="login-nav">
+        <!--<div class="login-nav">
             <ul>
 
                 <li><a href="login.html">Login</a></li>
                 <li><a href="contactus.html">Signup</a></li>
 
             </ul>
-        </div>
+        </div>-->
     </nav>
 
     <section class="background firstSection">
@@ -110,9 +110,10 @@
                 });
 
                 document.getElementById('cartItems').style.display = 'block';
-            } else {
+            } 
+            /*else {
                 alert("Your cart is empty! Add Veggies to your cart");
-            }
+            }*/
         }
 
         // Call the function to display cart items on page load
@@ -131,7 +132,7 @@
 
                 });
             });
-
+ 
             // Save cart items to localStorage
             localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
@@ -238,3 +239,4 @@
 </body>
 
 </html>
+
