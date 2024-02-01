@@ -17,31 +17,37 @@
 
         h2 em {
             color: white;
+
         }
 
         /*@media screen and (max-width: 768px) is targeting screens with a maximum width of 768 pixels or less. */
         @media screen and (max-width: 768px) {
             .logo {
                 width: 50%;
-                text-align: center; /* Center the logo on small screens */
+                text-align: center;
+                /* Center the logo on small screens */
             }
 
             .nav-list {
                 width: 100%;
                 flex-direction: column;
-                align-items: center; /* Center navigation items on small screens */
+                align-items: center;
+                /* Center navigation items on small screens */
             }
 
             .nav-list li {
-                padding: 5px; /* Reduce padding for navigation items on small screens */
+                padding: 5px;
+                /* Reduce padding for navigation items on small screens */
             }
 
             .firstHalf {
-                width: 100%; /* Take up full width on small screens */
+                width: 100%;
+                /* Take up full width on small screens */
             }
 
             .vegetable {
-                width: calc(50% - 20px); /* Two vegetables per row on small screens */
+                width: calc(50% - 20px);
+                /* Two vegetables per row on small screens */
             }
         }
     </style>
@@ -75,21 +81,23 @@
             <!-- Dynamic generation of vegetable elements -->
             <div class="vegetable-container" id="vegetable-container"></div>
 
-             <div id="cartItems">
+            <div id="cartItems">
                 <h2>Your Cart Items</h2>
                 <div class="logo"><img src="cart.jpg" alt="logo"></div>
                 <ul id="cartList"></ul>
                 <button class="cart" onclick="checkout()">Checkout</button>
+                <button class="cart" onclick="clearLocalStorageAndDisplayCart()">Clear Local Storage</button>
+
             </div>
         </div>
     </section>
 
     <footer class="footer">
         <p style="color: aliceblue;">&copy; 2024 Vegetable Shop</p>
-    </footer> 
+    </footer>
 
     <script>
-         
+
 
         // Function to check and display cart items on page load
         function displayCartOnLoad() {
@@ -102,7 +110,7 @@
 
                 storedCartItems.forEach(function (item) {
                     var listItem = document.createElement('li');
-                    listItem.dataset.vegetable = item.vid;  
+                    listItem.dataset.vegetable = item.vid;
                     listItem.dataset.name = item.name;
                     listItem.dataset.quantity = item.quantity;
                     listItem.textContent = `${item.name} x${item.quantity}`;
@@ -110,19 +118,27 @@
                 });
 
                 document.getElementById('cartItems').style.display = 'block';
-            } 
-            /*else {
+            } /*
+            else {
                 alert("Your cart is empty! Add Veggies to your cart");
             }*/
         }
 
+        // Function to clear local storage  
+        function clearLocalStorageAndDisplayCart() {
+            localStorage.removeItem('cartItems');
+            updateAndRenderCart(); // This will update the cart UI
+            document.getElementById('cartItems').style.display = 'none'; // Hide the cart items popup
+
+            displayCartOnLoad();
+        }
         // Call the function to display cart items on page load
         displayCartOnLoad();
 
         function updateLocalStorageCart() {
             var cartItems = [];
             var cartListItems = document.querySelectorAll('#cartList li');
-//creates an array of objects representing the cart.
+            //creates an array of objects representing the cart.
             cartListItems.forEach(function (item) {
                 cartItems.push({
                     vid: +item.dataset.vegetable,
@@ -132,7 +148,7 @@
 
                 });
             });
- 
+
             // Save cart items to localStorage
             localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
@@ -149,7 +165,7 @@
             if (storedCartItems.length > 0) {
                 // Clear existing cart items in the container
                 cartContainer.innerHTML = '';
-                
+
                 storedCartItems.forEach(function (item) {
                     var listItem = document.createElement('li');
                     listItem.dataset.vegetable = item.vid;
@@ -162,7 +178,7 @@
                 document.getElementById('cartItems').style.display = 'block';
             } else {
                 // If the cart is empty, display a message
-                cartContainer.innerHTML = 'Your cart is empty.';
+                //cartContainer.innerHTML = 'Your cart is empty.';
                 document.getElementById('cartItems').style.display = 'none';
             }
         }
@@ -200,21 +216,21 @@
         // Vegetable Data
         const vegetables = [
             { id: 1, name: 'Carrot', image: 'carrot.jpg', price: 11.99 },
-            { id: 2,name: 'Tomato', image: 'tomatoes.jpg', price: 29.49 },
-            {id: 3, name: 'Broccoli', image: 'broccoli.jpg', price: 39 },
+            { id: 2, name: 'Tomato', image: 'tomatoes.jpg', price: 29.49 },
+            { id: 3, name: 'Broccoli', image: 'broccoli.jpg', price: 39 },
             { id: 4, name: 'Spinach', image: 'spinach.jpg', price: 54 },
             { id: 5, name: 'Bell Pepper', image: 'bellpepper.jpg', price: 1.79 },
-            { id: 6, name: 'Cucumber', image: 'cucumber.jpg', price: 24},
-            { id: 7,name: 'Zucchini', image: 'zucchini.jpg', price: 25 },
-            { id: 8,name: 'Eggplant', image: 'eggplant.jpg', price: 15 },
-            { id: 9,name: 'Bell Pepper', image: 'bellpepper.jpg', price: 19 },
-            { id: 10, name: 'Cucumber', image: 'cucumber.jpg', price: 29 },
-            { id: 11, name: 'Zucchini', image: 'zucchini.jpg', price: 49 },
-            { id: 12, name: 'Eggplant', image: 'eggplant.jpg', price: 19 },
-            { id: 13, name: 'Carrot', image: 'carrot.jpg', price: 53 },
-            { id: 14, name: 'Tomato', image: 'tomatoes.jpg', price: 32 },
+            { id: 6, name: 'Cucumber', image: 'cucumber.jpg', price: 24 },
+            { id: 7, name: 'Zucchini', image: 'zucchini.jpg', price: 25 },
+            { id: 8, name: 'Eggplant', image: 'eggplant.jpg', price: 15 },
+            { id: 9, name: 'Mushroom', image: 'mushroom.jpg', price: 19 },
+            { id: 10, name: 'Onion', image: 'onion.jpg', price: 29 },
+            { id: 11, name: 'Sweet Corn', image: 'sweet corn.jpg', price: 49 },
+            { id: 12, name: 'Chilli', image: 'chilli.jpg', price: 19 },
+            { id: 13, name: 'Radish', image: 'radish.jpg', price: 53 },
+            { id: 14, name: 'Potato', image: 'potato.jpg', price: 32 },
             { id: 15, name: 'Broccoli', image: 'broccoli.jpg', price: 29 },
-            { id: 16, name: 'Spinach', image: 'spinach.jpg', price: 38 }  
+            { id: 16, name: 'Coriander', image: 'coriander.jpg', price: 38 }
             // We can Add more vegetables as needed
         ];
 
@@ -232,11 +248,11 @@
                    
                     <p>$${vegetable.price.toFixed(2)} per kg</p>
                     <button class="cart" onclick="addToCart('${vegetable.id.toString()}')">Add to Cart</button>
+                    
                 </div>
             `;
         } 
-    </script> 
+    </script>
 </body>
 
 </html>
-

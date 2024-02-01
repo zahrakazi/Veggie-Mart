@@ -38,18 +38,18 @@ body {
 /*flex to display list as nav*/
 .nav-list {
     width: 50%;
-    display: flex;
+    display: flex;  /* for horizontal alignment of nav elements*/
     align-items: center;
 }
 
-.login-nav li a{    /*login paert*/
+.login-nav li a{    /*login part*/
     
     color: white;
     text-decoration: none;
 
 }
 
-.login-nav li {    /*login paert*/
+.login-nav li {    /*login part*/
     list-style: none;
     text-decoration: none;
 
